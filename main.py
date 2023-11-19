@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QWidget, QApplication, QPushButton
 class Example(QWidget):
     def __init__(self):
         super().__init__()
+
         self.initUI()
 
     def initUI(self):
@@ -26,18 +27,29 @@ class Example(QWidget):
     def paintEvent(self, e):
         qp = QPainter()
         qp.begin(self)
+
         self.draw_circles(qp)
+
         qp.end()
 
     def draw_circles(self, qp):
         dia = random.randint(10, 200)
         x = random.randint(10, 350)
         y = random.randint(10, 300)
+
         qp.setBrush(QColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
         qp.drawEllipse(x, y, dia, dia)
 
 
+class Gui:
+    def __init__(self):
+        self.app = QApplication(sys.argv)
+        self.ex = Example()
+
+    def run(self):
+        sys.exit(self.app.exec_())
+
+
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = Example()
-    sys.exit(app.exec_())
+    gui = Gui()
+    gui.run()
